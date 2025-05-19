@@ -12,7 +12,6 @@
     { "project": "i_obj.ts.adligo.org"},
     { "project": "i_strings.ts.adligo.org"},
     {"project": "i_log2.ts.adligo.org"},
-    {"project": "junitXml.tests4j.ts.adligo.org"},
     {"project": "log2.ts.adligo.org"},
     {"project": "tests4ts.ts.adligo.org"}
   ],
