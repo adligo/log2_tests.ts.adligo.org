@@ -29,3 +29,12 @@ replay_pid*
 /coverage
 /coverage/*
 
+/bin/
+/.classpath
+/dist/
+/dist
+/dist/*
+/node_modules/
+/node_modules
+/node_modules/*
+
