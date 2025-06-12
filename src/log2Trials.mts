@@ -15,11 +15,13 @@
  */
 
 
-import { I_Equatable } from './i_obj.ts.adligo.org@slink/i_obj.mts';
-import { AssertionContext, Test, ApiTrial, TrialSuite } from './tests4ts.ts.adligo.org@slink/tests4ts.mts';
-import { LogCtx, LogConfig, ConsoleWrapper, LogSegment } from './log2.ts.adligo.org@slink/log2.mts';
-import { LogLevel, I_Console } from './i_log2.ts.adligo.org@slink/i_log2.mts';
-
+import { I_Equatable } from '@ts.adligo.org/i_obj/dist/i_obj.mjs';
+import { I_AssertionContext } from '@ts.adligo.org/i_tests4ts/dist/i_tests4ts.mjs';
+import { ApiTrial } from '@ts.adligo.org/tests4ts/dist/trials.mjs';
+import { Test, TrialSuite } from '@ts.adligo.org/tests4ts/dist/tests4ts.mjs';
+import { LogCtx, LogConfig, ConsoleWrapper, LogSegment } from '@ts.adligo.org/log2/dist/log2.mjs';
+import { LogLevel, I_Console } from '@ts.adligo.org/i_log2/dist/i_log2.mjs';
+import { JUnitXmlGenerator } from '@ts.adligo.org/junit-xml-tests4j/dist/junitXmlTests4jGenerator.mjs';
 
 // Mock console for testing
 class MockConsole implements I_Console {
@@ -45,9 +47,11 @@ class MockConsole implements I_Console {
 
 
 export class LogTests {
-    public static testLogLevels(ac: AssertionContext) {
+    public static testLogLevels(ac: I_AssertionContext) {
         const mockConsole = new MockConsole();
-        const config = new LogConfig({ 'level.test': 'DEBUG', 'format': '<logName/> <level/>: <message/>' });
+        const config = new LogConfig(        new Map<string, string>([
+          ["level.test", "DEBUG"],
+        ]),  '<logName/> <level/>: <message/>' );
         const ctx = new LogCtx(config, mockConsole);
         const log = ctx.getLog('test');
 
@@ -69,7 +73,7 @@ export class LogTests {
      * had strange issues
      * @param ac 
      */
-    public static testLogSegment(ac: AssertionContext) {
+    public static testLogSegment(ac: I_AssertionContext) {
         const segment = new LogSegment();
         segment.write('First part');
         segment.write('Second part');
@@ -88,9 +92,11 @@ export class LogTests {
     }
 
 
-    public static testConfigProperties(ac: AssertionContext) {
+    public static testConfigProperties(ac: I_AssertionContext) {
         const properties = { 'level.test': 'WARN', 'format': 'Custom <message/>' };
-        const config = new LogConfig(properties);
+        const config = new LogConfig(        new Map<string, string>([
+          ["level.test", "WARN"],
+        ]), 'Custom <message/>'  );
         ac.isTrue(config.getLevel('test') === LogLevel.WARN, 'Config should parse level from properties');
         ac.isTrue(config.getFormat() === 'Custom <message/>', 'Config should parse format from properties');
     }
@@ -111,4 +117,4 @@ const suite = new TrialSuite('Log2Suite', [trial]);
 
 
 // Run tests and print report
-suite.run().printTextReport();
+suite.run().printTextReport().printTestReportFiles(new JUnitXmlGenerator());

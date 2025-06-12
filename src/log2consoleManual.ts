@@ -1,5 +1,5 @@
-import {I_Console, I_LogCtx, I_LogConfig, I_LogSegment, I_Log } from './i_log2.ts.adligo.org@slink/i_log2.mjs';
-import { ConsoleWrapper, LogConfig, LogCtx, Log } from './log2.ts.adligo.org@slink/log2.mjs';
+import {I_Console, I_LogCtx, I_LogConfig, I_LogSegment, I_Log } from '@ts.adligo.org/i_log2/dist/i_log2.mjs';
+import { ConsoleWrapper, LogConfig, LogCtx, Log } from '@ts.adligo.org/log2/dist/log2.mjs';
 
 // Was running this file with commands like
 //  npx tsx src/log2consoleManual.ts
