@@ -105,9 +105,9 @@ export class LogTests {
 
 // Define tests
 const tests = [
-    new Test('testLogLevels', LogTests.testLogLevels),
+    new Test('org.adligo.ts.log2_tests.Log2Trial.testLogLevels', LogTests.testLogLevels),
     //new Test('testLogSegment', LogTests.testLogSegment),
-    new Test('testConfigProperties', LogTests.testConfigProperties)
+    new Test('org.adligo.ts.log2_tests.Log2Trial.testConfigProperties', LogTests.testConfigProperties)
 ];
 
 
