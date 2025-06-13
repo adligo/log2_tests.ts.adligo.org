@@ -30,6 +30,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "buildAndTests": "tsc && c8 node dist/log2Trials.mjs",
     "tests": "c8 node dist/log2Trials.mjs",
     "tsTests": "bun src/log2Trials.mjs",
     "tsc": "tsc"
