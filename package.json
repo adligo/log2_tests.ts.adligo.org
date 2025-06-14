@@ -17,7 +17,6 @@
     "typescript"
   ],
   "license": "Apache-2.0",
-  "name": "@log2.ts.adligo.org",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adligo/log2.ts.adligo.org.git"
