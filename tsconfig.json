@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
+    "lib": [
+      "ESNext"
+    ],
     "target": "ES2024",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "noImplicitAny": true,
-    "outDir": "./dist",
-    "rootDirs": ["./src"],
-    "preserveConstEnums": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
     "sourceMap": true
   },
   "include": [
