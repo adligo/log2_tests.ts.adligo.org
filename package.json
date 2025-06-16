@@ -5,7 +5,6 @@
   },
   "description": "This is the implementation of i_log2.ts.adligo.org.",
   "dependencies": {
-    "set.prototype.difference": "^1.1.7",
     "typescript": "^5.0.4"
   },
   "homepage": "https://github.com/adligo/log2.ts.adligo.org#readme",
