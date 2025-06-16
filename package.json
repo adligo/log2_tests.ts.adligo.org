@@ -5,6 +5,7 @@
   },
   "description": "This is the implementation of i_log2.ts.adligo.org.",
   "dependencies": {
+    "set.prototype.difference": "^1.1.7",
     "typescript": "^5.0.4"
   },
   "homepage": "https://github.com/adligo/log2.ts.adligo.org#readme",
@@ -29,9 +30,9 @@
   ],
   "scripts": {
     "build": "tsc",
-    "buildAndTests": "tsc && c8 node dist/log2Trials.mjs",
+    "buildAndTest": "tsc && c8 node --experimental-addon-modules dist/log2Trials.mjs",
     "tests": "c8 node dist/log2Trials.mjs",
-    "tsTests": "bun src/log2Trials.mjs",
+    "testsTs": "bun src/log2Trials.mjs",
     "tsc": "tsc"
   },
   "type": "module",

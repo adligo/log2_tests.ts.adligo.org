@@ -4,9 +4,9 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "lib": [
-      "ESNext"
+      "EsNext"
     ],
-    "target": "ES2024",
+    "target": "EsNext",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "outDir": "dist",

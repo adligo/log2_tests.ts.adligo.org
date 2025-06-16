@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-
 import { I_Equatable } from '@ts.adligo.org/i_obj/dist/i_obj.mjs';
-import { I_AssertionContext } from '@ts.adligo.org/i_tests4ts/dist/i_tests4ts.mjs';
+import { I_AssertionContext, I_Test } from '@ts.adligo.org/i_tests4ts/dist/i_tests4ts.mjs';
 import { ApiTrial } from '@ts.adligo.org/tests4ts/dist/trials.mjs';
 import { Test, TrialSuite } from '@ts.adligo.org/tests4ts/dist/tests4ts.mjs';
 import { LogCtx, LogConfig, ConsoleWrapper, LogSegment } from '@ts.adligo.org/log2/dist/log2.mjs';
@@ -47,8 +46,8 @@ class MockConsole implements I_Console {
 
 
 export class LogTests {
-  public static testLogLevels = new Test('org.adligo.ts.log2_tests.' +
-    'Log2Trial.testLogLevels', (ac: I_AssertionContext) => {
+  public static readonly TESTS: I_Test[] = [
+    new Test('testLogLevels', (ac: I_AssertionContext) => {
       const mockConsole = new MockConsole();
       const config = new LogConfig(new Map<string, string>([
         ["level.test", "DEBUG"],
@@ -74,15 +73,12 @@ export class LogTests {
         'Second message content check');
       ac.equals('debug', mockConsole.messages[1].level, 'Second message should be debug');
 
-    });
-
-
+    }),
   /**
    * had strange issues
    * @param ac 
    */
-  public static testLogSegment = new Test('org.adligo.ts.log2_tests.Log2Trial.' +
-    'testLogSegment', (ac: I_AssertionContext) => (ac: I_AssertionContext) => {
+  new Test('testLogSegment', (ac: I_AssertionContext) => (ac: I_AssertionContext) => {
       const segment = new LogSegment();
       segment.write('First part');
       segment.write('Second part');
@@ -98,27 +94,24 @@ export class LogTests {
       console.trace('hmm ac is ' + JSON.stringify(ac));
       console.trace('hmm ac.equals is ' + JSON.stringify(ac.equals));
       ac.equals('First partSecond part', segR);
-    });
-
-
-  public static testConfigProperties = new Test('org.adligo.ts.log2_tests.Log2Trial.' +
-    'testConfigProperties', (ac: I_AssertionContext) => {
+    }),
+  new Test('testConfigProperties', (ac: I_AssertionContext) => {
       const properties = { 'level.test': 'WARN', 'format': 'Custom <message/>' };
       const config = new LogConfig(new Map<string, string>([
         ["level.test", "WARN"],
       ]), 'Custom <message/>');
       ac.isTrue(config.getLevel('test') === LogLevel.WARN, 'Config should parse level from properties');
       ac.isTrue(config.getFormat() === 'Custom <message/>', 'Config should parse format from properties');
-    });
+    })
+    ];
 }
 
 
 
-
+console.log(process.versions);
 // Define trial and suite
-const trial = new ApiTrial('Log2Trial',
-  [LogTests.testLogSegment, LogTests.testLogLevels, LogTests.testConfigProperties]);
-const suite = new TrialSuite('Log2Suite', [trial]);
+const trial = new ApiTrial('Log2Trial',LogTests.TESTS);
+const suite = new TrialSuite('Log2Suite', [trial] );
 
 
 // Run tests and print report
