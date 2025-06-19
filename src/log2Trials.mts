@@ -46,73 +46,79 @@ class MockConsole implements I_Console {
 }
 
 
-export class LogTests {
-  public static readonly TESTS: I_Test[] = [
-    new Test('testLogLevels', (ac: I_AssertionContext) => {
-      const mockConsole = new MockConsole();
-      const config = new LogConfig(new Map<string, string>([
-        ["level.test", "DEBUG"],
-      ]), '<logName/> <level/>: <message/>');
-      const ctx = new LogCtx(config, mockConsole);
-      const log = ctx.getLog('test');
+export class Log2Trial extends ApiTrial {
+  public static readonly CLAZZ_NAME ="org.adligo.ts.log2_tests.Log2Trial";
+  
+  constructor() {
+    super(Log2Trial.CLAZZ_NAME);
+  }
+  
+  testLogLevels(ac: I_AssertionContext) {
+    const mockConsole = new MockConsole();
+    const config = new LogConfig(new Map<string, string>([
+      ["level.test", "DEBUG"],
+    ]), '<logName/> <level/>: <message/>');
+    const ctx = new LogCtx(config, mockConsole);
+    const log = ctx.getLog('test');
 
-      ac.equals(LogLevel.DEBUG, log.getLevel(), 'The log should be at Debug');
-      
-      log.trace('Trace message');
-      log.debug('Debug message');
-      log.info('Info message');
-      log.warn('Warn message');
-      log.error('Error message');
+    ac.equals(LogLevel.DEBUG, log.getLevel(), 'The log should be at Debug');
+    
+    log.trace('Trace message');
+    log.debug('Debug message');
+    log.info('Info message');
+    log.warn('Warn message');
+    log.error('Error message');
 
 
-      ac.equals(5, mockConsole.messages.length, 'Only messages at or above DEBUG level should be logged');
-      ac.equals('info', mockConsole.messages[0].level, 'First message should be info');
-      ac.equals('org.adligo.ts.log2.LogCtx INFO: Creating log \'test\' with level 1',
-        mockConsole.messages[0].message,
-        'First message content check');
-      ac.equals('test DEBUG: Debug message', mockConsole.messages[1].message,
-        'Second message content check');
-      ac.equals('debug', mockConsole.messages[1].level, 'Second message should be debug');
+    ac.equals(5, mockConsole.messages.length, 'Only messages at or above DEBUG level should be logged');
+    ac.equals('info', mockConsole.messages[0].level, 'First message should be info');
+    ac.equals('org.adligo.ts.log2.LogCtx INFO: Creating log \'test\' with level 1',
+      mockConsole.messages[0].message,
+      'First message content check');
+    ac.equals('test DEBUG: Debug message', mockConsole.messages[1].message,
+      'Second message content check');
+    ac.equals('debug', mockConsole.messages[1].level, 'Second message should be debug');
+  }
 
-    }),
   /**
    * had strange issues
    * @param ac 
    */
-  new Test('testLogSegment', (ac: I_AssertionContext) => (ac: I_AssertionContext) => {
-      const segment = new LogSegment();
-      segment.write('First part');
-      segment.write('Second part');
-      var segR = segment.flush();
-      if (ac == undefined) {
-        console.error('See trace from testLogSegment');
-        console.trace('testLogSegment');
+  testLogSegment(ac: I_AssertionContext) {
+    const segment = new LogSegment();
+    segment.write('First part');
+    segment.write('Second part');
+    var segR = segment.flush();
+    if (ac == undefined) {
+      console.error('See trace from testLogSegment');
+      console.trace('testLogSegment');
 
-      } else if (ac.equals === undefined) {
-        console.error('Ac.equals is undefined wtf see trace');
-        console.trace('testLogSegment Ac.equals');
-      }
-      console.trace('hmm ac is ' + JSON.stringify(ac));
-      console.trace('hmm ac.equals is ' + JSON.stringify(ac.equals));
-      ac.equals('First partSecond part', segR);
-    }),
-  new Test('testConfigProperties', (ac: I_AssertionContext) => {
-      const properties = { 'level.test': 'WARN', 'format': 'Custom <message/>' };
-      const config = new LogConfig(new Map<string, string>([
-        ["level.test", "WARN"],
-      ]), 'Custom <message/>');
-      ac.isTrue(config.getLevel('test') === LogLevel.WARN, 'Config should parse level from properties');
-      ac.isTrue(config.getFormat() === 'Custom <message/>', 'Config should parse format from properties');
-    })
-    ];
+    } else if (ac.equals === undefined) {
+      console.error('Ac.equals is undefined wtf see trace');
+      console.trace('testLogSegment Ac.equals');
+    }
+    console.trace('hmm ac is ' + JSON.stringify(ac));
+    console.trace('hmm ac.equals is ' + JSON.stringify(ac.equals));
+    ac.equals('First partSecond part', segR);
+  }
+    
+    
+    
+  testConfigProperties(ac: I_AssertionContext) {
+    const properties = { 'level.test': 'WARN', 'format': 'Custom <message/>' };
+    const config = new LogConfig(new Map<string, string>([
+      ["level.test", "WARN"],
+    ]), 'Custom <message/>');
+    ac.isTrue(config.getLevel('test') === LogLevel.WARN, 'Config should parse level from properties');
+    ac.isTrue(config.getFormat() === 'Custom <message/>', 'Config should parse format from properties');
+  }
 }
 
 
 
 console.log(process.versions);
 // Define trial and suite
-const trial = new ApiTrial('Log2Trial',LogTests.TESTS);
-const suite = new TrialSuite('Log2Suite', [trial] );
+const suite = new TrialSuite('Log2Suite', [new Log2Trial()] );
 
 
 // Run tests and print report
