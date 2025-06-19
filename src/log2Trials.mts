@@ -17,7 +17,8 @@
 import { I_Equatable } from '@ts.adligo.org/i_obj/dist/i_obj.mjs';
 import { I_AssertionContext, I_Test } from '@ts.adligo.org/i_tests4ts/dist/i_tests4ts.mjs';
 import { ApiTrial } from '@ts.adligo.org/tests4ts/dist/trials.mjs';
-import { Test, TrialSuite } from '@ts.adligo.org/tests4ts/dist/tests4ts.mjs';
+import { TrialSuite } from '@ts.adligo.org/tests4ts/dist/tests4ts.mjs';
+import { Test } from '@ts.adligo.org/tests4ts/dist/tests.mjs';
 import { LogCtx, LogConfig, ConsoleWrapper, LogSegment } from '@ts.adligo.org/log2/dist/log2.mjs';
 import { LogLevel, I_Console } from '@ts.adligo.org/i_log2/dist/i_log2.mjs';
 import { JUnitXmlGenerator } from '@ts.adligo.org/junit-xml-tests4j/dist/junitXmlTests4jGenerator.mjs';
